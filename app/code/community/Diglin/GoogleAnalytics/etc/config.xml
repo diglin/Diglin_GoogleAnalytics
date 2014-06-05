@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Diglin_GoogleAnalytics>
+            <version>0.1.0</version>
+        </Diglin_GoogleAnalytics>
+    </modules>
+
+    <default>
+        <google>
+            <analytics>
+                <universal_analytics>1</universal_analytics>
+            </analytics>
+        </google>
+    </default>
+
+    <global>
+        <blocks>
+            <googleanalytics>
+                <rewrite>
+                    <ga>Diglin_GoogleAnalytics_Block_Ga</ga>
+                </rewrite>
+            </googleanalytics>
+        </blocks>
+    </global>
+</config>
