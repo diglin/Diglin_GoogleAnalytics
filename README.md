@@ -2,6 +2,10 @@
 
 Overwrite Magento GoogleAnalytics and make it compatible with the new Universal Analytics and add category in the transaction
 
+## Requirements
+- Default Magento Google Analytics
+- Magento >= 1.7.1 (not tested on earlier version but may/should work)
+
 ## Installation
 
 ### Via modman
