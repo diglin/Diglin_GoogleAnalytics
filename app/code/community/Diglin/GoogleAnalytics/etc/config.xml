@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Diglin_GoogleAnalytics>
-            <version>0.1.0</version>
+            <version>1.0.0</version>
         </Diglin_GoogleAnalytics>
     </modules>
 
@@ -22,5 +22,11 @@
                 </rewrite>
             </googleanalytics>
         </blocks>
+
+        <helpers>
+            <diglin_googleanalytics>
+                <class>Diglin_GoogleAnalytics_Helper</class>
+            </diglin_googleanalytics>
+        </helpers>
     </global>
 </config>
