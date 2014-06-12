@@ -4,6 +4,9 @@
         <Diglin_GoogleAnalytics>
             <active>true</active>
             <codePool>community</codePool>
+            <depends>
+                <Mage_GoogleAnalytics />
+            </depends>
         </Diglin_GoogleAnalytics>
     </modules>
 </config>
