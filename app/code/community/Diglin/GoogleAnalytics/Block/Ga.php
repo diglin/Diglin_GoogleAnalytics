@@ -41,7 +41,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
         if ($pageName && preg_match('/^\/.*/i', $pageName)) {
             $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
         }
-        return "ga('create', '$accountId', 'auto');ga('send', 'pageview', '$optPageURL');" . $this->_getAnonymizationCode();
+        return "ga('create', '$accountId', 'auto');ga('send', 'pageview' $optPageURL);" . $this->_getAnonymizationCode();
     }
 
     /**
