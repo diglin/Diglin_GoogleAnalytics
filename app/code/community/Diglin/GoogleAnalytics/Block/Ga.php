@@ -41,7 +41,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
         if ($pageName && preg_match('/^\/.*/i', $pageName)) {
             $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
         }
-        return "ga('create', '$accountId', 'auto');ga('send', 'pageview' $optPageURL);" . $this->_getAnonymizationCode();
+        return "ga('create', '$accountId', 'auto');ga('send', 'pageview'$optPageURL);" . $this->_getAnonymizationCode();
     }
 
     /**
@@ -81,7 +81,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
         foreach ($collection as $order) {
             $baseToGlobalRate = $order->getBaseToGlobalRate();
 
-            $result[] = sprintf("ga('ecommerce:addTransaction', {'id':'%s','affiliation':'%s','revenue':'%s','shipping':'%s','tax':'%s','currency':'%s'}",
+            $result[] = sprintf("ga('ecommerce:addTransaction', {'id':'%s','affiliation':'%s','revenue':'%s','shipping':'%s','tax':'%s','currency':'%s'})",
                 $order->getIncrementId(),
                 $this->jsQuoteEscape(Mage::app()->getStore()->getFrontendName()),
                 $order->getBaseGrandTotal() * $baseToGlobalRate,
