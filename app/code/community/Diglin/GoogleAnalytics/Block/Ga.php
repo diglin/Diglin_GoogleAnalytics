@@ -180,12 +180,15 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
      */
     protected function _getAnonymizationCode()
     {
-        if (!Mage::helper('googleanalytics')->isIpAnonymizationEnabled()) {
-            return '';
-        }
+        $helper = Mage::helper('googleanalytics');
+        if (method_exists($helper, 'isIpAnonymizationEnabled')) { // Compatibility with Magento 1.7
+            if (!$helper->isIpAnonymizationEnabled()) {
+                return '';
+            }
 
-        if (!Mage::getStoreConfigFlag(Diglin_GoogleAnalytics_Helper_Data::CONFIG_UNIVERSAL_ANALYTICS)) {
-            return parent::_getAnonymizationCode();
+            if (!Mage::getStoreConfigFlag(Diglin_GoogleAnalytics_Helper_Data::CONFIG_UNIVERSAL_ANALYTICS)) {
+                return parent::_getAnonymizationCode();
+            }
         }
 
         return "ga('set', 'anonymizeIp', true);";
