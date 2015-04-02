@@ -41,7 +41,11 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
         if ($pageName && preg_match('/^\/.*/i', $pageName)) {
             $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
         }
-        return "ga('create', '$accountId', 'auto');ga('send', 'pageview'$optPageURL);" . $this->_getAnonymizationCode();
+        return "ga('create', '$accountId', 'auto');"
+        . "ga('require', 'displayfeatures');" // must be before any hits are sent to Google
+        . $this->_getUserId() // must be before any hits are sent to Google
+        . "ga('send', 'pageview'$optPageURL);"
+        . $this->_getAnonymizationCode();
     }
 
     /**
@@ -250,5 +254,18 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
             $this->setPageName($url);
         }
         return $this->getData('page_name');
+    }
+
+    /**
+     * Multi device tracking USER ID
+     *
+     * @return string
+     */
+    protected function _getUserId()
+    {
+        if (Mage::getSingleton('customer/session')->getCustomerId()) {
+            return "ga('set', '&uid', ". Mage::getSingleton('customer/session')->getCustomerId() .");";
+        }
+        return '';
     }
 }
