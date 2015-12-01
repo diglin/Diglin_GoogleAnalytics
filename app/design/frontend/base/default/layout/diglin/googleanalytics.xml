@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * GAConversionTrack
+ *
+ * @category    Interactiv4
+ * @package     Interactiv4_GAConversionTrack
+ * @copyright   Copyright (c) 2012 Interactiv4 SL. (http://www.interactiv4.com)
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="core/text_list" name="ua_before_head_end" as="ua_before_head_end"/>
+            <action method="addJs" ifconfig="google/social/enabled">
+                <script>diglin/ga/social_interaction.js</script>
+            </action>
+
+            <action method="unsetChild"><child>google_analytics</child></action>
+            <block type="diglin_googleanalytics/ga" name="google_analytics" as="google_analytics" template="diglin/googleanalytics/ga.phtml" />
+
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" name="social" template="diglin/googleanalytics/social_interactions.phtml" output="toHtml">
+                <action method="setData" ifconfig="google/social/fb_like"><name>fb_like</name><value>1</value></action>
+                <action method="setData" ifconfig="google/social/fb_unlike"><name>fb_unlike</name><value>1</value></action>
+                <action method="setData" ifconfig="google/social/fb_share"><name>fb_share</name><value>1</value></action>
+                <!--<action method="setData" ifconfig="google/social/twitter_interactions"><name>twitter_interactions</name><value>1</value></action>-->
+            </block>
+        </reference>
+    </default>
+
+    <checkout_onepage_paymentmethod>
+        <reference name="root">
+            <block type="core/template" name="visitant.info" template="diglin/googleanalytics/visitant.phtml" output="toHtml" />
+        </reference>
+    </checkout_onepage_paymentmethod>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs"><script>diglin/ga/i4gaconversiontrack.js</script></action>
+        </reference>
+    </checkout_onepage_index>
+</layout>

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Diglin_GoogleAnalytics>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </Diglin_GoogleAnalytics>
     </modules>
 
@@ -10,12 +10,24 @@
         <google>
             <analytics>
                 <universal_analytics>1</universal_analytics>
+                <order_status><![CDATA[a:4:{s:18:"_1448981823547_547";a:2:{s:5:"state";s:3:"new";s:6:"status";s:10:"processing";}s:18:"_1448981849644_644";a:2:{s:5:"state";s:3:"new";s:6:"status";s:7:"pending";}s:18:"_1448981857149_149";a:2:{s:5:"state";s:3:"new";s:6:"status";s:15:"pending_payment";}s:18:"_1448981864924_924";a:2:{s:5:"state";s:8:"complete";s:6:"status";s:8:"complete";}}]]></order_status>
+                <page_title><![CDATA[Checkout success]]></page_title>
+                <page_url><![CDATA[/checkout/onepage/success]]></page_url>
             </analytics>
+            <social>
+                <fb_like>1</fb_like>
+                <fb_unlike>1</fb_unlike>
+                <fb_share>1</fb_share>
+                <twitter_interactions>1</twitter_interactions>
+            </social>
         </google>
     </default>
 
     <global>
         <blocks>
+            <diglin_googleanalytics>
+                <class>Diglin_GoogleAnalytics_Block</class>
+            </diglin_googleanalytics>
             <googleanalytics>
                 <rewrite>
                     <ga>Diglin_GoogleAnalytics_Block_Ga</ga>
@@ -28,5 +40,82 @@
                 <class>Diglin_GoogleAnalytics_Helper</class>
             </diglin_googleanalytics>
         </helpers>
+
+        <models>
+            <diglin_googleanalytics>
+                <class>Diglin_GoogleAnalytics_Model</class>
+            </diglin_googleanalytics>
+        </models>
+
+        <resources>
+            <diglin_ga_setup>
+                <setup>
+                    <module>Diglin_GoogleAnalytics</module>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </diglin_ga_setup>
+
+            <diglin_ga_resource_read>
+                <connection>core_read</connection>
+            </diglin_ga_resource_read>
+
+            <diglin_ga_resource_write>
+                <connection>core_write</connection>
+            </diglin_ga_resource_write>
+
+        </resources>
+
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <diglin_googleanalytics_save_fields>
+                        <type>singleton</type>
+                        <class>diglin_googleanalytics/observer</class>
+                        <method>saveFields</method>
+                    </diglin_googleanalytics_save_fields>
+                </observers>
+            </sales_order_place_after>
+
+            <sales_order_save_after>
+                <observers>
+                    <diglin_googleanalytics_track>
+                        <type>singleton</type>
+                        <class>diglin_googleanalytics/observer</class>
+                        <method>track</method>
+                    </diglin_googleanalytics_track>
+                </observers>
+            </sales_order_save_after>
+
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <diglin_googleanalytics_order_success>
+                        <class>diglin_googleanalytics/observer</class>
+                        <method>setGoogleAnalyticsOnOrderSuccessPageView</method>
+                    </diglin_googleanalytics_order_success>
+                </observers>
+            </checkout_onepage_controller_success_action>
+
+            <checkout_multishipping_controller_success_action>
+                <observers>
+                    <diglin_googleanalytics_order_success>
+                        <class>diglin_googleanalytics/observer</class>
+                        <method>setGoogleAnalyticsOnOrderSuccessPageView</method>
+                    </diglin_googleanalytics_order_success>
+                </observers>
+            </checkout_multishipping_controller_success_action>
+        </events>
     </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <diglin_googleanalytics>
+                    <file>diglin/googleanalytics.xml</file>
+                </diglin_googleanalytics>
+            </updates>
+        </layout>
+    </frontend>
 </config>

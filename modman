@@ -1,2 +1,5 @@
 app/etc/modules/Diglin_GoogleAnalytics.xml app/etc/modules/Diglin_GoogleAnalytics.xml
 app/code/community/Diglin/GoogleAnalytics app/code/community/Diglin/GoogleAnalytics
+js/diglin/ga js/diglin/ga
+app/design/frontend/base/default/layout/diglin/googleanalytics.xml app/design/frontend/base/default/layout/diglin/googleanalytics.xml
+app/design/frontend/base/default/template/diglin/googleanalytics app/design/frontend/base/default/template/diglin/googleanalytics

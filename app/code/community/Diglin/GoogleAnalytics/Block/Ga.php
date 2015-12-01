@@ -17,7 +17,7 @@
  *
  * @category    Diglin
  * @package     Diglin_GoogleAnalytics
- * @copyright   Copyright (c) 2011-2014 Diglin (http://www.diglin.com)
+ * @copyright   Copyright (c) 2011-2016 Diglin (http://www.diglin.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
@@ -41,7 +41,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
         if ($pageName && preg_match('/^\/.*/i', $pageName)) {
             $optPageURL = ", '{$this->jsQuoteEscape($pageName)}'";
         }
-        return "ga('create', '$accountId', 'auto');"
+        return "ga('create', '$accountId', {$this->getAccountParams()});"
         . "ga('require', 'displayfeatures');" // must be before any hits are sent to Google
         . $this->_getUserId() // must be before any hits are sent to Google
         . "ga('send', 'pageview'$optPageURL);"
@@ -49,11 +49,24 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
     }
 
     /**
+     * Prevent developer to be tracked
+     *
+     * @return string
+     */
+    public function getAccountParams()
+    {
+        if (Mage::getIsDeveloperMode()) {
+            return Mage::helper('core')->jsonEncode(['cookieDomain' => 'none']);
+        }
+        return "'auto'";
+    }
+
+    /**
      * Render information about specified orders and their items / GA ecommerce
      * Add also missing product category compared the Magento Google Analytics Extension
      *
      * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
-     * @return string
+     * @return string|$this
      */
     protected function _getOrdersTrackingCode()
     {
@@ -74,6 +87,8 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
 
     /**
      * Specific ecommerce tracking for Universal Analytics of GA
+     *
+     * Add support of currency and rate
      *
      * @param $collection
      * @return string
@@ -99,7 +114,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
                     $order->getIncrementId(),
                     $this->jsQuoteEscape($item->getName()),
                     $this->jsQuoteEscape($item->getSku()),
-                    $this->getProductCategoryList($item),
+                    $this->_getProductCategoryList($item),
                     $item->getBasePrice() * $baseToGlobalRate,
                     $item->getQtyOrdered(),
                     $order->getGlobalCurrencyCode()
@@ -112,6 +127,8 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
 
     /**
      * Specific ecommerce tracking for classic Analytics of GA
+     *
+     * Add support of currency and rate
      *
      * @param $collection
      * @return string
@@ -143,7 +160,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
                     $order->getIncrementId(),
                     $this->jsQuoteEscape($item->getSku()),
                     $this->jsQuoteEscape($item->getName()),
-                    $this->getProductCategoryList($item),
+                    $this->_getProductCategoryList($item),
                     $item->getBasePrice() * $baseToGlobalRate,
                     $item->getQtyOrdered()
                 );
@@ -165,16 +182,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
             return '';
         }
 
-        if (!Mage::getStoreConfigFlag(Diglin_GoogleAnalytics_Helper_Data::CONFIG_UNIVERSAL_ANALYTICS)) {
-            return parent::_toHtml();
-        }
-
-        $accountId = Mage::getStoreConfig(Mage_GoogleAnalytics_Helper_Data::XML_PATH_ACCOUNT);
-
-        return "<script>(function(G,o,O,g,l){G.GoogleAnalyticsObject=O;G[O]||(G[O]=function(){(G[O].q=G[O].q||[]).push(arguments)});G[O].l=+new Date;g=o.createElement('script'),l=o.scripts[0];g.src='//www.google-analytics.com/analytics.js';l.parentNode.insertBefore(g,l)}(this,document,'ga'));"
-        . $this->_getPageTrackingCode($accountId)
-        . $this->_getOrdersTrackingCode()
-        . "</script>";
+        return parent::_toHtml();
     }
 
     /**
@@ -199,12 +207,12 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
     }
 
     /**
-     * Retreive the category list of an ordered product
+     * Retrieve the category list of an ordered product
      *
      * @param Mage_Sales_Model_Order_Item $item
      * @return string
      */
-    protected function getProductCategoryList(Mage_Sales_Model_Order_Item $item)
+    protected function _getProductCategoryList(Mage_Sales_Model_Order_Item $item)
     {
         $product = Mage::getModel('catalog/product')->loadByAttribute('sku', $item->getSku());
 
