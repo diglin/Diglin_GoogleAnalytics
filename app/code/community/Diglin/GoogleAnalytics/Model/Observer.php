@@ -177,15 +177,15 @@ class Diglin_GoogleAnalytics_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      */
-    public function setGoogleAnalyticsOnOrderSuccessPageView(Varien_Event_Observer $observer)
-    {
-        $orderIds = $observer->getEvent()->getOrderIds();
-        if (empty($orderIds) || !is_array($orderIds)) {
-            return;
-        }
-        $block = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('google_analytics');
-        if ($block) {
-            $block->setOrderIds($orderIds);
-        }
-    }
+//    public function setGoogleAnalyticsOnOrderSuccessPageView(Varien_Event_Observer $observer)
+//    {
+//        $orderIds = $observer->getEvent()->getOrderIds();
+//        if (empty($orderIds) || !is_array($orderIds)) {
+//            return;
+//        }
+//        $block = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('google_analytics');
+//        if ($block) {
+//            $block->setOrderIds($orderIds);
+//        }
+//    }
 }

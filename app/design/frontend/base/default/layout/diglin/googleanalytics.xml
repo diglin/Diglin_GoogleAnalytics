@@ -41,4 +41,10 @@
             <action method="addJs"><script>diglin/ga/i4gaconversiontrack.js</script></action>
         </reference>
     </checkout_onepage_index>
+
+    <checkout_onepage_success>
+        <reference name="head">
+            <remove name="google_analytics" />
+        </reference>
+    </checkout_onepage_success>
 </layout>
