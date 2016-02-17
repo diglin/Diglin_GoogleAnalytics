@@ -66,17 +66,17 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
      * Add also missing product category compared the Magento Google Analytics Extension
      *
      * @link https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
-     * @return string|$this
+     * @return string
      */
     protected function _getOrdersTrackingCode()
     {
         $orderIds = $this->getOrderIds();
         if (empty($orderIds) || !is_array($orderIds)) {
-            return;
+            return '';
         }
+
         $collection = Mage::getResourceModel('sales/order_collection')
-            ->addFieldToFilter('entity_id', array('in' => $orderIds))
-        ;
+            ->addFieldToFilter('entity_id', array('in' => $orderIds));
 
         if (Mage::getStoreConfigFlag(Diglin_GoogleAnalytics_Helper_Data::CONFIG_UNIVERSAL_ANALYTICS)) {
             return $this->_getUniversalAnalyticsOrdersTrackingCode($collection);
@@ -88,7 +88,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
     /**
      * Specific ecommerce tracking for Universal Analytics of GA
      *
-     * Add support of currency and rate
+     * Diglin: Add support of currency and rate
      *
      * @param $collection
      * @return string
@@ -251,11 +251,16 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
                 $query = '?' . $parts['query'];
             }
 
+            $storeCode = '';
+            if (Mage::getStoreConfigFlag('web/url/use_store')) {
+                $storeCode = '/' . Mage::app()->getStore()->getCode();
+            }
+
             $url = Mage::getSingleton('core/url')->escape(
                 rtrim(
                     str_replace(
                         'index/', '',
-                        Mage::app()->getRequest()->getBaseUrl() . Mage::app()->getRequest()->getRequestString()
+                        Mage::app()->getRequest()->getBaseUrl() . $storeCode . Mage::app()->getRequest()->getRequestString()
                     ), '/'
                 ) . $query
             );
