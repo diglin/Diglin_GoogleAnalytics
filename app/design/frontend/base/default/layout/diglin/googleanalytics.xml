@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <!--
 /**
- * GAConversionTrack
+ * Diglin GmbH - Switzerland
  *
- * @category    Interactiv4
- * @package     Interactiv4_GAConversionTrack
- * @copyright   Copyright (c) 2012 Interactiv4 SL. (http://www.interactiv4.com)
+ * @author      Sylvain Rayé <support at diglin.com>
+ * @category    Diglin
+ * @package     Diglin_Facebook
+ * @copyright   Copyright (c) 2011-2015 Diglin (http://www.diglin.com)
  */
 -->
 <layout version="0.1.0">
@@ -21,7 +22,7 @@
 
         </reference>
         <reference name="before_body_end">
-            <block type="core/template" name="social" template="diglin/googleanalytics/social_interactions.phtml" output="toHtml">
+            <block type="core/template" name="social" template="diglin/googleanalytics/social_interactions.phtml">
                 <action method="setData" ifconfig="google/social/fb_like"><name>fb_like</name><value>1</value></action>
                 <action method="setData" ifconfig="google/social/fb_unlike"><name>fb_unlike</name><value>1</value></action>
                 <action method="setData" ifconfig="google/social/fb_share"><name>fb_share</name><value>1</value></action>
@@ -41,10 +42,4 @@
             <action method="addJs"><script>diglin/ga/i4gaconversiontrack.js</script></action>
         </reference>
     </checkout_onepage_index>
-
-    <checkout_onepage_success>
-        <reference name="head">
-            <remove name="google_analytics" />
-        </reference>
-    </checkout_onepage_success>
 </layout>

@@ -47,6 +47,7 @@ class Diglin_GoogleAnalytics_Model_Observer
 
         if (Mage::helper('diglin_googleanalytics')->isGoogleAnalyticsAvailable($store)
             && !$order->getData('i4gaconversiontrack_tracked')
+            && Mage::helper('diglin_googleanalytics')->allowHttpPostTracking($store)
         ) {
             $statusesToTrack = Mage::helper('diglin_googleanalytics')->getStatusesToTrack($store);
             $pass = false;
@@ -62,6 +63,7 @@ class Diglin_GoogleAnalytics_Model_Observer
             }
 
             $googleAnalyticsAccountId = Mage::helper('diglin_googleanalytics')->getAccountId($store);
+
             $domain = parse_url($store->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB), PHP_URL_HOST);
             $trackData = $this->_addTrackingDataToOrder($order);
 
@@ -71,17 +73,19 @@ class Diglin_GoogleAnalytics_Model_Observer
                 $trackData->getData('i4gaconversiontrack_user_agent')
             );
 
-            $ga_tracking->setData('uip', $order->getRemoteIp());
-            $ga_tracking->setData('cu', $order->getOrderCurrencyCode());
-            $ga_tracking->setData('sr', $trackData->getData('i4gaconversiontrack_screen_resolution'));
-            $ga_tracking->setData('sd', $trackData->getData('i4gaconversiontrack_screen_color_depth'));
-            $ga_tracking->setData('ul', $trackData->getData('i4gaconversiontrack_browser_language'));
-            $ga_tracking->setData('je', $trackData->getData('i4gaconversiontrack_browser_java_enabled'));
+            $ga_tracking
+                ->setData('uip', $order->getRemoteIp())
+                ->setData('cu', $order->getOrderCurrencyCode())
+                ->setData('sr', $trackData->getData('i4gaconversiontrack_screen_resolution'))
+                ->setData('sd', $trackData->getData('i4gaconversiontrack_screen_color_depth'))
+                ->setData('ul', $trackData->getData('i4gaconversiontrack_browser_language'))
+                ->setData('je', $trackData->getData('i4gaconversiontrack_browser_java_enabled'));
 
             // PageView for Successful Checkout Page
             $ga_tracking->pageView(
                 Mage::getStoreConfig('google/analytics/page_title', $store),
-                Mage::getStoreConfig('google/analytics/page_url', $store));
+                Mage::getStoreConfig('google/analytics/page_url', $store)
+            );
 
             $address = $order->getIsVirtual() ? $order->getBillingAddress() : $order->getShippingAddress();
 
@@ -130,7 +134,10 @@ class Diglin_GoogleAnalytics_Model_Observer
     public function saveFields(Varien_Event_Observer $observer)
     {
         $order = $observer->getEvent()->getOrder();
-        $this->_addTrackingDataToOrder($order);
+        $store = Mage::app()->getStore($order->getStoreId());
+        if (Mage::helper('diglin_googleanalytics')->allowHttpPostTracking($store)) {
+            $this->_addTrackingDataToOrder($order);
+        }
 
         return $this;
     }
@@ -167,25 +174,4 @@ class Diglin_GoogleAnalytics_Model_Observer
 
         return $trackData;
     }
-
-    /**
-     * Event:
-     * - checkout_onepage_controller_success_action
-     * - checkout_multishipping_controller_success_action
-     *
-     * Add order information into GA block to render on checkout success pages
-     *
-     * @param Varien_Event_Observer $observer
-     */
-//    public function setGoogleAnalyticsOnOrderSuccessPageView(Varien_Event_Observer $observer)
-//    {
-//        $orderIds = $observer->getEvent()->getOrderIds();
-//        if (empty($orderIds) || !is_array($orderIds)) {
-//            return;
-//        }
-//        $block = Mage::app()->getFrontController()->getAction()->getLayout()->getBlock('google_analytics');
-//        if ($block) {
-//            $block->setOrderIds($orderIds);
-//        }
-//    }
 }

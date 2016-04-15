@@ -34,20 +34,21 @@ class Diglin_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Config paths for using throughout the code
      */
-    const XML_PATH_ACTIVE        = 'google/analytics/active';
-    const XML_PATH_TYPE          = 'google/analytics/type';
-    const XML_PATH_ACCOUNT       = 'google/analytics/account';
-    const XML_PATH_ANONYMIZATION = 'google/analytics/anonymization';
-    const XML_PATH_ORDER_STATUS  = 'google/analytics/order_status';
-    const XML_PATH_SOCIAL_ENABLED = 'google/social/enabled';
+    const XML_PATH_ACTIVE               = 'google/analytics/active';
+    const XML_PATH_TYPE                 = 'google/analytics/type';
+    const XML_PATH_ACCOUNT              = 'google/analytics/account';
+    const XML_PATH_ANONYMIZATION        = 'google/analytics/anonymization';
+    const XML_PATH_ORDER_STATUS         = 'google/analytics/order_status';
+    const XML_PATH_SOCIAL_ENABLED       = 'google/social/enabled';
+    const XML_PATH_GA_POST_REQUEST      = 'google/analytics/ga_post_request';
 
     /**
-     * @var classic google analytics tracking code
+     * Google analytics tracking code
      */
     const TYPE_ANALYTICS = 'analytics';
 
     /**
-     * @var google analytics universal tracking code
+     * Google analytics universal tracking code
      */
     const TYPE_UNIVERSAL = 'universal';
 
@@ -123,5 +124,14 @@ class Diglin_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Data
     public function isSocialInteractionsEnabled($store = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_SOCIAL_ENABLED, $store);
+    }
+
+    /**
+     * @param null $store
+     * @return mixed
+     */
+    public function allowHttpPostTracking($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_GA_POST_REQUEST, $store);
     }
 }
