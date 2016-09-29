@@ -2,10 +2,10 @@
 
 - Overwrite Magento GoogleAnalytics and make it compatible with the new Universal Analytics 
 - Add category in the ecommerce transaction
-- Support of all order transaction (online/offline) based on [Hackathon project](https://github.com/magento-hackathon/UniversalGaConversionTracking) but with lots of big fixes and improvements.
+- Support of all order transaction (online/offline) based on [Hackathon project](https://github.com/magento-hackathon/UniversalGaConversionTracking) but with some bug fixes and improvements.
 
 ## Requirements
-- Default Magento Google Analytics
+- Default Magento Google Analytics Module
 - Magento >= 1.7.1 until 1.9.x (not tested on earlier version but may/should work)
 
 ## Installation
