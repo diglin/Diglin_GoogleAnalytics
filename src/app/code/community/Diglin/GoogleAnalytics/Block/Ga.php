@@ -32,7 +32,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
      */
     protected function _getPageTrackingCode($accountId)
     {
-        if (!Mage::getStoreConfigFlag(Diglin_GoogleAnalytics_Helper_Data::CONFIG_UNIVERSAL_ANALYTICS)) {
+        if (!Mage::helper('diglin_googleanalytics')->isUseUniversalAnalytics()) {
             return parent::_getPageTrackingCode($accountId);
         }
 
@@ -78,7 +78,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
         $collection = Mage::getResourceModel('sales/order_collection')
             ->addFieldToFilter('entity_id', array('in' => $orderIds));
 
-        if (Mage::getStoreConfigFlag(Diglin_GoogleAnalytics_Helper_Data::CONFIG_UNIVERSAL_ANALYTICS)) {
+        if (Mage::helper('diglin_googleanalytics')->isUseUniversalAnalytics()) {
             return $this->_getUniversalAnalyticsOrdersTrackingCode($collection);
         } else {
             return $this->_getAnalyticsOrdersTrackingCode($collection);
@@ -198,7 +198,7 @@ class Diglin_GoogleAnalytics_Block_Ga extends Mage_GoogleAnalytics_Block_Ga
                 return '';
             }
 
-            if (!Mage::getStoreConfigFlag(Diglin_GoogleAnalytics_Helper_Data::CONFIG_UNIVERSAL_ANALYTICS)) {
+            if (!Mage::helper('diglin_googleanalytics')->isUseUniversalAnalytics()) {
                 return parent::_getAnonymizationCode();
             }
         }

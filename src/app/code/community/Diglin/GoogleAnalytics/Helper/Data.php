@@ -32,7 +32,7 @@ class Diglin_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Data
     const CONFIG_ENHANCED_ECOMMERCE  = 'google/analytics/enhanced_ecommerce';
 
     /**
-     * Config paths for using throughout the code
+     * Config paths for using throughout the code - Mage_GoogleAnalytics standard paths
      */
     const XML_PATH_ACTIVE               = 'google/analytics/active';
     const XML_PATH_TYPE                 = 'google/analytics/type';
@@ -94,7 +94,8 @@ class Diglin_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Data
      */
     public function isUseUniversalAnalytics($store = null)
     {
-        return Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_UNIVERSAL;
+        return (Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == self::TYPE_UNIVERSAL
+            || Mage::getStoreConfig(self::XML_PATH_TYPE, $store) == '' && Mage::getStoreConfigFlag(self::CONFIG_UNIVERSAL_ANALYTICS)); // for Magento compatibility version < 1.9.1
     }
 
     /**
