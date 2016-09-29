@@ -1,6 +1,7 @@
 # Diglin GoogleAnalytics
 
-- Overwrite Magento GoogleAnalytics and make it compatible with the new Universal Analytics 
+- Overwrite Magento GoogleAnalytics and make it compatible with the new Universal Analytics
+- Add specific ecommerce tags
 - Add category in the ecommerce transaction
 - Support of all order transaction (online/offline) based on [Hackathon project](https://github.com/magento-hackathon/UniversalGaConversionTracking) but with some bug fixes and improvements.
 
@@ -27,7 +28,7 @@
     "repositories": [
 	    {
             "type": "composer",
-            "url": "http://packages.firegento.com"
+            "url": "https://packages.firegento.com"
         }
     ],
     "extra":{
