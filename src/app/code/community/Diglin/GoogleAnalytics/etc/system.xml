@@ -106,13 +106,128 @@
                         </page_url>
                     </fields>
                 </analytics>
-                <social translate="label">
-                    <label>Analytics Social interactions (beta)</label>
+                <remarketing>
+                    <label>Google Remarketing</label>
+                    <tab>sales</tab>
+                    <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <expanded>1</expanded>
+                    <fields>
+                        <remarketing_active translate="label comment">
+                            <label>Enable Google Remarketing</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment><![CDATA[Insert Google Remarketing Javascript code]]></comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </remarketing_active>
+                        <id translate="label comment">
+                            <label>Google Remarketing Conversion ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active>
+                            </depends>
+                        </id>
+                        <home translate="label comment">
+                            <label>Page Type Home</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment><![CDATA[Give the list of Magento handles related to CMS pages. One handle per line. See <a href="https://developers.google.com/adwords-remarketing-tag/parameters?hl=en">here</a> for more information about remarketing tag.]]></comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active>
+                            </depends>
+                        </home>
+                        <searchresults translate="label comment">
+                            <label>Page Type Search Results</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment><![CDATA[Give the list of Magento handles related to Search Results pages. One handle per line. See <a href="https://developers.google.com/adwords-remarketing-tag/parameters?hl=en">here</a> for more information about remarketing tag.]]></comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active> 
+                            </depends>
+                        </searchresults>
+                        <category translate="label comment">
+                            <label>Page Type Category</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment><![CDATA[Give the list of Magento handles related to Category pages. One handle per line. See <a href="https://developers.google.com/adwords-remarketing-tag/parameters?hl=en">here</a> for more information about remarketing tag.]]></comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active> 
+                            </depends>
+                        </category>
+                        <product translate="label comment">
+                            <label>Page Type Product</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment><![CDATA[Give the list of Magento handles related to Product pages. One handle per line. See <a href="https://developers.google.com/adwords-remarketing-tag/parameters?hl=en">here</a> for more information about remarketing tag.]]></comment>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active> 
+                            </depends>
+                        </product>
+                        <cart translate="label comment">
+                            <label>Page Type Cart</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment><![CDATA[Give the list of Magento handles related to Cart pages. One handle per line. See <a href="https://developers.google.com/adwords-remarketing-tag/parameters?hl=en">here</a> for more information about remarketing tag.]]></comment>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active> 
+                            </depends>
+                        </cart>
+                        <purchase translate="label comment">
+                            <label>Page Type Purchase</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment><![CDATA[Give the list of Magento handles related to Purchase pages. One handle per line. See <a href="https://developers.google.com/adwords-remarketing-tag/parameters?hl=en">here</a> for more information about remarketing tag.]]></comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active> 
+                            </depends>
+                        </purchase>
+                        <other translate="label comment">
+                            <label>Page Type Other</label>
+                            <frontend_type>textarea</frontend_type>
+                            <comment><![CDATA[Give the list of Magento handles related to Other pages. One handle per line. See <a href="https://developers.google.com/adwords-remarketing-tag/parameters?hl=en">here</a> for more information about remarketing tag.]]></comment>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remarketing_active>1</remarketing_active> 
+                            </depends>
+                        </other>
+                    </fields>
+                </remarketing>
+                <social translate="label">
+                    <label>Analytics Social interactions (beta)</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
                     <fields>
                         <enabled translate="label">
                             <label>Enable the social interaction</label>

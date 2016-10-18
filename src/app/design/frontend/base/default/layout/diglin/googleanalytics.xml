@@ -19,9 +19,11 @@
 
             <action method="unsetChild"><child>google_analytics</child></action>
             <block type="diglin_googleanalytics/ga" name="google_analytics" as="google_analytics" template="diglin/googleanalytics/ga.phtml" />
-
         </reference>
+
         <reference name="before_body_end">
+            <block type="diglin_googleanalytics/remarketing" name="google_remarketing" as="google_remarketing" template="diglin/googleanalytics/remarketing.phtml" />
+
             <block type="core/template" name="social" template="diglin/googleanalytics/social_interactions.phtml">
                 <action method="setData" ifconfig="google/social/fb_like"><name>fb_like</name><value>1</value></action>
                 <action method="setData" ifconfig="google/social/fb_unlike"><name>fb_unlike</name><value>1</value></action>

@@ -2,12 +2,60 @@
 <config>
     <modules>
         <Diglin_GoogleAnalytics>
-            <version>1.3.0</version>
+            <version>1.4.0</version>
         </Diglin_GoogleAnalytics>
     </modules>
 
     <default>
         <google>
+            <remarketing>
+                <active>0</active>
+                <home><![CDATA[
+cms_index_index
+cms_index_defaultindex
+cms_page
+                ]]></home>
+                <searchresults><![CDATA[
+catalogsearch_result_index
+catalogsearch_advanced_result
+                ]]></searchresults>
+                <category><![CDATA[
+catalog_category_default
+catalog_category_layered
+catalog_product_compare_index
+                ]]></category>
+                <product><![CDATA[
+catalog_product_view
+checkout_cart_configure
+                ]]></product>
+                <cart><![CDATA[
+checkout_cart_index
+checkout_onepage_index
+checkout_multishipping
+checkout_multishipping_login
+checkout_multishipping_register
+checkout_multishipping_address_select
+checkout_multishipping_address_selectbilling
+checkout_multishipping_address_newshipping
+checkout_multishipping_address_newbilling
+checkout_multishipping_address_editshipping
+checkout_multishipping_address_editaddress
+checkout_multishipping_address_editbilling
+checkout_multishipping_customer_address
+checkout_multishipping_addresses
+checkout_multishipping_shipping
+checkout_multishipping_billing
+checkout_multishipping_overview
+                ]]></cart>
+                <purchase><![CDATA[
+checkout_onepage_failure
+checkout_onepage_success
+checkout_multishipping_success
+                ]]></purchase>
+                <other><![CDATA[
+contacts_index_index
+                ]]></other>
+            </remarketing>
             <analytics>
                 <universal_analytics>1</universal_analytics>
                 <ga_post_request>0</ga_post_request>

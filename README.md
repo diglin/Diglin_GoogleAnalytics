@@ -4,6 +4,7 @@
 - Add specific ecommerce tags
 - Add category in the ecommerce transaction
 - Support of all order transaction (online/offline) based on [Hackathon project](https://github.com/magento-hackathon/UniversalGaConversionTracking) but with some bug fixes and improvements.
+- Support Google Remarketing Tags (add correct tags for specific pages and conversion.js)
 
 ## Requirements
 - Default Magento Google Analytics Module

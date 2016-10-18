@@ -1,0 +1,42 @@
+<?php
+/**
+ * Diglin GmbH - Switzerland
+ *
+ * @author      Sylvain Rayé <support at diglin.com>
+ * @category    Diglin
+ * @package     Diglin_GoogleAnalytics
+ * @copyright   Copyright (c) 2011-2016 Diglin (http://www.diglin.com)
+ */
+
+/**
+ * @var $this Diglin_GoogleAnalytics_Block_Remarketing
+ */
+?>
+<?php
+$_helper = Mage::helper('diglin_googleanalytics');
+$_conversionId = $_helper->getRemarketingId();
+
+$_productId = $this->getProductId();
+$_pageType = $this->getPageType();
+$_totalValue = $this->getTotalValue();
+$_category = $this->getCategory();
+?>
+<?php if ($_helper->isRemarketingEnabled() && $_conversionId): ?>
+<script type="text/javascript">
+var google_tag_params = {
+<?php if ($_productId): ?>ecomm_prodid: <?php echo $_productId; ?>,<?php endif; ?>
+<?php if ($_pageType):?>ecomm_pagetype: '<?php echo $_pageType ?>',<?php endif; ?>
+<?php if ($_totalValue): ?>ecomm_totalvalue: <?php echo $_totalValue; ?>,<?php endif; ?>
+<?php if ($_category): ?>ecomm_category: '<?php echo $_category; ?>'<?php endif; ?>
+};
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = <?php echo $_conversionId; ?>;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+<noscript><div style="display:inline;"><img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/<?php echo $_conversionId; ?>/?guid=ON&amp;script=0"/></div></noscript>
+<?php endif; ?>

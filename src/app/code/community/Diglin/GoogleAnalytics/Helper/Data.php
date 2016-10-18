@@ -41,6 +41,16 @@ class Diglin_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Data
     const XML_PATH_ORDER_STATUS         = 'google/analytics/order_status';
     const XML_PATH_SOCIAL_ENABLED       = 'google/social/enabled';
     const XML_PATH_GA_POST_REQUEST      = 'google/analytics/ga_post_request';
+    
+    const XML_PATH_REM_ACTIVE           = 'google/remarketing/remarketing_active';
+    const XML_PATH_REM_ID               = 'google/remarketing/id';
+    const XML_PATH_REM_HOME             = 'google/remarketing/home';
+    const XML_PATH_REM_SEARCHRESULTS    = 'google/remarketing/searchresults';
+    const XML_PATH_REM_CATEGORY         = 'google/remarketing/category';
+    const XML_PATH_REM_PRODUCT          = 'google/remarketing/product';
+    const XML_PATH_REM_CART             = 'google/remarketing/cart';
+    const XML_PATH_REM_PURCHASE         = 'google/remarketing/purchase';
+    const XML_PATH_REM_OTHER            = 'google/remarketing/other';
 
     /**
      * Google analytics tracking code
@@ -61,6 +71,7 @@ class Diglin_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Data
     public function isGoogleAnalyticsAvailable($store = null)
     {
         $accountId = Mage::getStoreConfig(self::XML_PATH_ACCOUNT, $store);
+
         return $accountId && Mage::getStoreConfigFlag(self::XML_PATH_ACTIVE, $store);
     }
 
@@ -134,5 +145,95 @@ class Diglin_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Data
     public function allowHttpPostTracking($store = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_GA_POST_REQUEST, $store);
+    }
+
+    /**
+     * @param null $store
+     * @return bool
+     */
+    public function isRemarketingEnabled($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_REM_ACTIVE, $store);
+    }
+
+    /**
+     * @param null $store
+     * @return mixed
+     */
+    public function getRemarketingId($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_REM_ID, $store);
+    }
+
+    /**
+     * @param $config
+     * @return array
+     */
+    protected function _extractConfiguration($config)
+    {
+        return explode(PHP_EOL, $config);
+    }
+
+    /**
+     * @param null $store
+     * @return array
+     */
+    public function getHomePageTypeList($store = null)
+    {
+        return $this->_extractConfiguration(Mage::getStoreConfig(self::XML_PATH_REM_HOME, $store));
+    }
+
+    /**
+     * @param null $store
+     * @return array
+     */
+    public function getCategoryPageTypeList($store = null)
+    {
+        return $this->_extractConfiguration(Mage::getStoreConfig(self::XML_PATH_REM_CATEGORY, $store));
+    }
+
+    /**
+     * @param null $store
+     * @return array
+     */
+    public function getProductPageTypeList($store = null)
+    {
+        return $this->_extractConfiguration(Mage::getStoreConfig(self::XML_PATH_REM_PRODUCT, $store));
+    }
+
+    /**
+     * @param null $store
+     * @return array
+     */
+    public function getSearchResultsPageTypeList($store = null)
+    {
+        return $this->_extractConfiguration(Mage::getStoreConfig(self::XML_PATH_REM_SEARCHRESULTS, $store));
+    }
+
+    /**
+     * @param null $store
+     * @return array
+     */
+    public function getPurchasePageTypeList($store = null)
+    {
+        return $this->_extractConfiguration(Mage::getStoreConfig(self::XML_PATH_REM_PURCHASE, $store));
+    }
+
+    /**
+     * @param null $store
+     * @return array
+     */
+    public function getCartPageTypeList($store = null)
+    {
+        return $this->_extractConfiguration(Mage::getStoreConfig(self::XML_PATH_REM_CART, $store));
+    }
+
+    /**
+     * @param null $store
+     * @return array
+     */
+    public function getOtherPageTypeList($store = null)
+    {
+        return $this->_extractConfiguration(Mage::getStoreConfig(self::XML_PATH_REM_OTHER, $store));
     }
 }
