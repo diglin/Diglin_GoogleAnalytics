@@ -57,6 +57,7 @@ contacts_index_index
                 ]]></other>
             </remarketing>
             <analytics>
+                <type>analytics</type>
                 <universal_analytics>1</universal_analytics>
                 <ga_post_request>0</ga_post_request>
                 <order_status><![CDATA[a:4:{s:18:"_1448981823547_547";a:2:{s:5:"state";s:3:"new";s:6:"status";s:10:"processing";}s:18:"_1448981849644_644";a:2:{s:5:"state";s:3:"new";s:6:"status";s:7:"pending";}s:18:"_1448981857149_149";a:2:{s:5:"state";s:3:"new";s:6:"status";s:15:"pending_payment";}s:18:"_1448981864924_924";a:2:{s:5:"state";s:8:"complete";s:6:"status";s:8:"complete";}}]]></order_status>
