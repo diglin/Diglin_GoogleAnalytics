@@ -69,14 +69,11 @@
                             <frontend_type>select</frontend_type>
                             <frontend_model>diglin_googleanalytics/system_config_form_field_statustotrack</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
-                            <comment><![CDATA[<strong>IMPORTANT:</strong>Took in account only if GA Post above is enabled.]]></comment>
+                            <comment><![CDATA[<strong>IMPORTANT:</strong>Considered only if config "Allow GA Post request in checkout" is enabled.]]></comment>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends>
-                                <ga_post_request>1</ga_post_request>
-                            </depends>
                         </order_status>
                         <page_title translate="label comment">
                             <label>Success Page Title</label>
